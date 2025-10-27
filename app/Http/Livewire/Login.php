@@ -19,7 +19,7 @@ class Login extends Component
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             return redirect()->route('dashboard');
         } else {
-            session()->flash('error', 'Credenciales incorrectas');
+            $this->addError('credentials', 'Credenciales incorrectas');
         }
     }
 
