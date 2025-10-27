@@ -16,8 +16,10 @@
         <livewire:navbar />
     </header>
 
-    <main class="p-5 m-5 bg-white rounded-xl shadow">
-        {{ $slot }}
+    <main class="flex justify-center">
+        <div class="p-5 m-5 bg-white rounded-xl shadow w-1/4">
+            {{ $slot }}
+        </div>
     </main>
 
     @livewireScripts
