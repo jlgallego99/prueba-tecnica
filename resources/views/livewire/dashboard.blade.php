@@ -1,3 +1,1 @@
-<div>
-    {{-- Nothing in the world is as soft and yielding as water. --}}
-</div>
+<h1 class="text-2xl font-bold">Hello {{ $user->name }}!</h1>
