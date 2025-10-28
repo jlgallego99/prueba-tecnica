@@ -3,15 +3,18 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Component;
 
 class Register extends Component
 {
     public $name;
+
     public $email;
+
     public $password;
+
     public $password_confirmation;
 
     public function submit()
