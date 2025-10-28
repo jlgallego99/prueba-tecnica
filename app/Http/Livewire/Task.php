@@ -8,6 +8,7 @@ class Task extends Component
 {
     public string $title = '';
     public string $description = '';
+    public string $taskId = '';
 
     public function render()
     {
