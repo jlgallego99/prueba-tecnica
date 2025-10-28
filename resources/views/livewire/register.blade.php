@@ -1,4 +1,4 @@
-<div class="p-5 m-5 bg-white rounded-xl shadow w-1/4">
+<div class="p-5 m-5 bg-white rounded-xl shadow w-1/4 w-full max-w-md mx-auto">
     <form wire:submit.prevent="submit">
         <div>
             <label for="name" class="text-md">Name</label>
