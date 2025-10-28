@@ -18,7 +18,7 @@
     <button type="submit" class="mt-5 rounded-md bg-primary text-white p-3 hover:bg-[#b7a5fc] cursor-pointer">
         Log in
     </button>
-    @error('credentials')
-        <span>{{ session('error') }}</span>
-    @enderror
+    @if ($errors->has('credentials'))
+        <span class="text-red-500">{{ $errors->first('credentials') }}</span>
+    @endif
 </form>
