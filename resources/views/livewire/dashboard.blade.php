@@ -5,6 +5,7 @@
         <div class="flex-1 bg-gray-200 p-4 rounded-lg">
             <h2 class="text-xl font-semibold mb-4">Pending</h2>
             <div class="space-y-4">
+                <livewire:task />
             </div>
         </div>
 
