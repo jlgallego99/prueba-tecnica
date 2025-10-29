@@ -19,7 +19,7 @@ class TaskFactory extends Factory
     {
         return [
             'title' => fake()->name(),
-            'description' => fake()->unique()->safeEmail(),
+            'description' => fake()->text(),
             'status' => fake()->randomElement(['pending', 'in_progress', 'completed']),
         ];
     }

@@ -6,7 +6,7 @@
             <h2 class="text-xl font-semibold mb-4">Pending</h2>
             <div class="space-y-4">
                 @foreach ($tasks['pending'] as $task)
-                    <livewire:task wire:key="task-{{ $task['id'] }}" :taskId="$task['id']" :title="$task['title']" :description="$task['description']"/>
+                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title" :description="$task->description"/>
                 @endforeach
             </div>
         </div>
@@ -15,7 +15,7 @@
             <h2 class="text-xl font-semibold mb-4">In Progress</h2>
             <div class="space-y-4">
                 @foreach ($tasks['in_progress'] as $task)
-                    <livewire:task wire:key="task-{{ $task['id'] }}" :taskId="$task['id']" :title="$task['title']" :description="$task['description']"/>
+                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title" :description="$task->description"/>
                 @endforeach
             </div>
         </div>
@@ -24,7 +24,7 @@
             <h2 class="text-xl font-semibold mb-4">Completed</h2>
             <div class="space-y-4">
                 @foreach ($tasks['completed'] as $task)
-                    <livewire:task wire:key="task-{{ $task['id'] }}" :taskId="$task['id']" :title="$task['title']" :description="$task['description']"/>
+                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title" :description="$task->description"/>
                 @endforeach
             </div>
         </div>

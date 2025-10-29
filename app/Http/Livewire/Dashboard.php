@@ -2,28 +2,25 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public $tasks = [
-        'pending' => [
-            ['id' => 1, 'title' => 'Task A', 'description' => 'Description for Task A'],
-            ['id' => 2, 'title' => 'Task B', 'description' => 'Description for Task B'],
-        ],
-        'in_progress' => [
-            ['id' => 3, 'title' => 'Task C', 'description' => 'Description for Task C'],
-        ],
-        'completed' => [],
-    ];
-
     public function render()
     {
         $user = Auth::user();
 
         if ($user) {
-            return view('livewire.dashboard', compact('user'));
+            return view('livewire.dashboard', [
+                'user' => $user,
+                'tasks' => [
+                    'pending' => Task::query()->where('user_id', '=', $user->id)->where('status', '=', 'pending')->get(),
+                    'in_progress' => Task::query()->where('user_id', '=', $user->id)->where('status', '=', 'in_progress')->get(),
+                    'completed' => Task::query()->where('user_id', '=', $user->id)->where('status', '=', 'completed')->get(),
+                ],
+            ]);
         }
     }
 }
