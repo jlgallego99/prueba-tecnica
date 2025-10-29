@@ -6,8 +6,20 @@
             <h2 class="text-xl font-semibold mb-4">Pending</h2>
             <div class="space-y-4">
                 @foreach ($tasks['pending'] as $task)
-                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title" :description="$task->description"/>
+                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title"
+                        :description="$task->description" />
                 @endforeach
+            </div>
+
+            <div class="mt-4">
+                @if ($creatingOnColumn === 'pending')
+                    <livewire:create-task />
+                @else
+                    <button wire:click="showCreateTaskOnColumn('pending')"
+                        class="bg-transparent rounded-lg px-3 py-2 hover:shadow hover:bg-gray-100 font-semibold hover:cursor-pointer">
+                        <span class="text-xl mr-2">+</span> Add a task
+                    </button>
+                @endif
             </div>
         </div>
 
@@ -15,8 +27,20 @@
             <h2 class="text-xl font-semibold mb-4">In Progress</h2>
             <div class="space-y-4">
                 @foreach ($tasks['in_progress'] as $task)
-                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title" :description="$task->description"/>
+                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title"
+                        :description="$task->description" />
                 @endforeach
+            </div>
+
+            <div class="mt-4">
+                @if ($creatingOnColumn === 'in_progress')
+                    <livewire:create-task />
+                @else
+                    <button wire:click="showCreateTaskOnColumn('in_progress')"
+                        class="bg-transparent rounded-lg px-3 py-2 hover:shadow hover:bg-gray-100 font-semibold hover:cursor-pointer">
+                        <span class="text-xl mr-2">+</span> Add a task
+                    </button>
+                @endif
             </div>
         </div>
 
@@ -24,8 +48,20 @@
             <h2 class="text-xl font-semibold mb-4">Completed</h2>
             <div class="space-y-4">
                 @foreach ($tasks['completed'] as $task)
-                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title" :description="$task->description"/>
+                    <livewire:task wire:key="task-{{ $task->id }}" :taskId="$task->id" :title="$task->title"
+                        :description="$task->description" />
                 @endforeach
+            </div>
+
+            <div class="mt-4">
+                @if ($creatingOnColumn === 'completed')
+                    <livewire:create-task />
+                @else
+                    <button wire:click="showCreateTaskOnColumn('completed')"
+                        class="bg-transparent rounded-lg px-3 py-2 hover:shadow hover:bg-gray-100 font-semibold hover:cursor-pointer">
+                        <span class="text-xl mr-2">+</span> Add a task
+                    </button>
+                @endif
             </div>
         </div>
     </div>
@@ -44,7 +80,8 @@
                 const newStatus = zone.dataset.status;
 
                 // Call the livewire component
-                const dashboard = Livewire.find(document.querySelector('[data-dashboard-id]').dataset.dashboardId);
+                const dashboard = Livewire.find(document.querySelector('[data-dashboard-id]').dataset
+                    .dashboardId);
                 dashboard.call('updateTaskStatus', taskId, newStatus);
             });
         });

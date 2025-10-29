@@ -8,6 +8,12 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
+    public string|null $creatingOnColumn = null;
+
+    protected $listeners = [
+        'taskCreated' => 'createTask',
+    ];
+
     public function updateTaskStatus($taskId, $newStatus)
     {
         $task = Task::find($taskId);
@@ -17,6 +23,24 @@ class Dashboard extends Component
             $task->status = $newStatus;
             $task->save();
         }
+    }
+
+    public function createTask($taskTitle)
+    {
+        if ($taskTitle && $this->creatingOnColumn && !empty($taskTitle)) {
+            auth()->user()->tasks()->create([
+                'title' => $taskTitle,
+                'status' => $this->creatingOnColumn,
+                'description' => '',
+            ]);
+        }
+
+        // Also close the form if the user tries to input an empty title, like in trello
+        $this->creatingOnColumn = null;
+    }
+
+    public function showCreateTaskOnColumn($column) {
+        $this->creatingOnColumn = $column;
     }
 
     public function render()
