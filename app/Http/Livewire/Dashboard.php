@@ -24,8 +24,6 @@ class Dashboard extends Component
 
         if ($user) {
             return view('livewire.dashboard', compact('user'));
-        } else {
-            $this->redirect('/');
         }
     }
 }
