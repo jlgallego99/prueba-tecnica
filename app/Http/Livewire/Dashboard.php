@@ -8,6 +8,17 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
+    public function updateTaskStatus($taskId, $newStatus)
+    {
+        $task = Task::find($taskId);
+
+        // Check that the task belongs to this user and changes status
+        if ($task && $task->user_id === Auth::id() && $newStatus !== $task->status) {
+            $task->status = $newStatus;
+            $task->save();
+        }
+    }
+
     public function render()
     {
         $user = Auth::user();

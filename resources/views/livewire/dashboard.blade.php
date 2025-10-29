@@ -1,4 +1,4 @@
-<div class="p-5 m-5 bg-white rounded-xl shadow w-full">
+<div data-dashboard-id="{{ $this->id }}" class="p-5 m-5 bg-white rounded-xl shadow w-full">
     <h1 class="text-2xl font-bold">Hello {{ $user->name }}! These are your tasks</h1>
 
     <div drag-root class="flex flex-col md:flex-row gap-6 mt-5">
@@ -30,3 +30,30 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        const columns = document.querySelectorAll(".task-column");
+        columns.forEach(zone => {
+            zone.addEventListener("dragover", e => e.preventDefault());
+
+            zone.addEventListener("drop", e => {
+                e.preventDefault();
+
+                const taskId = e.dataTransfer.getData('text/plain');
+                const newStatus = zone.dataset.status;
+
+                // Call the livewire component
+                const dashboard = Livewire.find(document.querySelector('[data-dashboard-id]').dataset.dashboardId);
+                dashboard.call('updateTaskStatus', taskId, newStatus);
+            });
+        });
+
+        const tasks = document.querySelectorAll(".task");
+        tasks.forEach(task => {
+            task.addEventListener("dragstart", e => {
+                e.dataTransfer.setData("text/plain", task.dataset.id);
+            });
+        });
+    </script>
+@endpush

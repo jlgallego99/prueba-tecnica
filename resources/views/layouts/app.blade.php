@@ -23,28 +23,7 @@
     </main>
 
     @livewireScripts
-
-    <script>
-        const columns = document.querySelectorAll(".task-column");
-        columns.forEach(zone => {
-            zone.addEventListener("dragover", e => e.preventDefault());
-
-            zone.addEventListener("drop", e => {
-                e.preventDefault();
-
-                const taskId = e.dataTransfer.getData('text/plain');
-                const newStatus = zone.dataset.status;
-                console.log(`Task ${taskId} dropped in ${newStatus}`);
-            });
-        });
-
-        const tasks = document.querySelectorAll(".task");
-        tasks.forEach(task => {
-            task.addEventListener("dragstart", e => {
-                e.dataTransfer.setData("text/plain", task.dataset.id);
-            });
-        });
-    </script>
+    @stack('scripts')
 </body>
 
 </html>
