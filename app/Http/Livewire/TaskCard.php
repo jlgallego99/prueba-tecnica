@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Task extends Component
+class TaskCard extends Component
 {
     public string $title = '';
     public string $description = '';
@@ -12,6 +12,6 @@ class Task extends Component
 
     public function render()
     {
-        return view('livewire.task');
+        return view('livewire.task-card');
     }
 }
