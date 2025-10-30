@@ -28,7 +28,7 @@ class TaskView extends Component
 
     public function submit(): void
     {
-
+        $this->emitUp('updateTask', $this->taskId, $this->title, $this->description);
     }
 
     public function deleteTask(): void

@@ -16,9 +16,10 @@ class Dashboard extends Component
         'openTask' => 'showTaskView',
         'closeTask' => 'closeTaskView',
         'deleteTask' => 'deleteTask',
+        'updateTask' => 'updateTask',
     ];
 
-    public function updateTaskStatus($taskId, $newStatus)
+    public function updateTaskStatus($taskId, $newStatus): void
     {
         $task = Task::find($taskId);
 
@@ -29,7 +30,7 @@ class Dashboard extends Component
         }
     }
 
-    public function createTask($taskTitle)
+    public function createTask($taskTitle): void
     {
         if ($taskTitle && $this->creatingOnColumn && !empty($taskTitle)) {
             auth()->user()->tasks()->create([
@@ -43,12 +44,25 @@ class Dashboard extends Component
         $this->creatingOnColumn = null;
     }
 
-    public function deleteTask($taskId)
+    public function deleteTask($taskId): void
     {
         $task = Task::query()->where('id', '=', $taskId)->first();
 
         if ($task && $task->user_id === Auth::id()) {
             $task->delete();
+        }
+
+        $this->selectedTaskId = null;
+    }
+
+    public function updateTask($taskId, $taskTitle, $taskDescription): void
+    {
+        $task = Task::query()->where('id', '=', $taskId)->first();
+
+        if ($task && $task->user_id === Auth::id()) {
+            $task->title = $taskTitle;
+            $task->description = $taskDescription;
+            $task->save();
         }
 
         $this->selectedTaskId = null;
