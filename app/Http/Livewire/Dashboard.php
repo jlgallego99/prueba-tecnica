@@ -14,7 +14,8 @@ class Dashboard extends Component
     protected $listeners = [
         'taskCreated' => 'createTask',
         'openTask' => 'showTaskView',
-        'closeTask' => 'closeTaskView'
+        'closeTask' => 'closeTaskView',
+        'deleteTask' => 'deleteTask',
     ];
 
     public function updateTaskStatus($taskId, $newStatus)
@@ -40,6 +41,17 @@ class Dashboard extends Component
 
         // Also close the form if the user tries to input an empty title, like in trello
         $this->creatingOnColumn = null;
+    }
+
+    public function deleteTask($taskId)
+    {
+        $task = Task::query()->where('id', '=', $taskId)->first();
+
+        if ($task && $task->user_id === Auth::id()) {
+            $task->delete();
+        }
+
+        $this->selectedTaskId = null;
     }
 
     public function showCreateTaskOnColumn($column)

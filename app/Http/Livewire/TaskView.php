@@ -12,6 +12,8 @@ class TaskView extends Component
     public string $description = "";
     public string $status = "";
 
+    public bool $confirmDelete = false;
+
     public function mount()
     {
         if ($this->taskId) {
@@ -31,7 +33,16 @@ class TaskView extends Component
 
     public function deleteTask(): void
     {
-        $this->emitUp('deleteTask', $this->taskId);
+        if ($this->confirmDelete) {
+            $this->emitUp('deleteTask', $this->taskId);
+        } else {
+            $this->confirmDelete = true;
+        }
+    }
+
+    public function cancelDelete(): void
+    {
+        $this->confirmDelete = false;
     }
 
     public function close()
