@@ -8,15 +8,35 @@ use Livewire\Component;
 class TaskView extends Component
 {
     public int|null $taskId = null;
-    public Task|null $task = null;
+    public string $title = "";
+    public string $description = "";
+    public string $status = "";
 
     public function mount()
     {
         if ($this->taskId) {
-            $this->task = Task::query()->where('id', '=', $this->taskId)->first();
+            $task = Task::query()->where('id', '=', $this->taskId)->first();
+            $this->title = $task->title;
+            $this->description = $task->description;
+            $this->status = str_replace('_', ' ', $task->status);
         } else {
             $this->emitUp('closeTask');
         }
+    }
+
+    public function submit(): void
+    {
+
+    }
+
+    public function deleteTask(): void
+    {
+        $this->emitUp('deleteTask', $this->taskId);
+    }
+
+    public function close()
+    {
+        $this->emitUp('closeTask');
     }
 
     public function render()

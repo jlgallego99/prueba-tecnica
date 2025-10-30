@@ -52,7 +52,7 @@ class Dashboard extends Component
         $this->selectedTaskId = $taskId;
     }
 
-    public function closeTaskView($taskId)
+    public function closeTaskView()
     {
         $this->selectedTaskId = null;
     }
