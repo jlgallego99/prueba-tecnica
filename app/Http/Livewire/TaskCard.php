@@ -8,7 +8,12 @@ class TaskCard extends Component
 {
     public string $title = '';
     public string $description = '';
-    public string $taskId = '';
+    public int|null $taskId = null;
+
+    public function openTask(): void
+    {
+        $this->emitUp('openTask', $this->taskId);
+    }
 
     public function render()
     {

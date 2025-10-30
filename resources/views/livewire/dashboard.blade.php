@@ -65,6 +65,10 @@
             </div>
         </div>
     </div>
+
+    @if ($selectedTaskId !== null)
+        <livewire:task-view :taskId="$selectedTaskId" />
+    @endif
 </div>
 
 @push('scripts')

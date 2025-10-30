@@ -9,9 +9,11 @@ use Livewire\Component;
 class Dashboard extends Component
 {
     public string|null $creatingOnColumn = null;
+    public string|null $selectedTaskId = null;
 
     protected $listeners = [
         'taskCreated' => 'createTask',
+        'openTask' => 'showTaskView'
     ];
 
     public function updateTaskStatus($taskId, $newStatus)
@@ -39,8 +41,14 @@ class Dashboard extends Component
         $this->creatingOnColumn = null;
     }
 
-    public function showCreateTaskOnColumn($column) {
+    public function showCreateTaskOnColumn($column)
+    {
         $this->creatingOnColumn = $column;
+    }
+
+    public function showTaskView($taskId)
+    {
+        $this->selectedTaskId = $taskId;
     }
 
     public function render()
