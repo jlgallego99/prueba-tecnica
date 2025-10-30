@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\CreateTask;
 use App\Http\Livewire\Dashboard;
 use App\Models\Task;
 use App\Models\User;
@@ -14,13 +15,15 @@ beforeEach(function () {
     $this->user2 = User::factory()->create();
     $this->actingAs($this->user);
 
-    Livewire::test(Dashboard::class)
+    Livewire::test(CreateTask::class, ['status' => 'pending'])
         ->set('title', 'Task A')
-        ->set('description', 'Description for Task A')
-        ->set('status', 'pending')
-        ->call('storeTask')
+        ->call('submit')
+        ->assertEmittedUp('taskCreated');
+
+    Livewire::test(Dashboard::class)
+        ->call('showCreateTaskOnColumn', 'pending')
+        ->emit('taskCreated', 'Task A')
         ->assertSee('Task A')
-        ->assertSee('Description for Task A')
         ->assertViewHas('tasks', function ($tasks) {
             return count($tasks['pending']) === 1 && count($tasks['in_progress']) === 0 && count($tasks['completed']) === 0;
         });
@@ -30,7 +33,6 @@ it('creates a task successfully', function () {
     $task = Task::query()->first();
     expect($task)->not->toBeNull()
         ->and($task->title)->toBe('Task A')
-        ->and($task->description)->toBe('Description for Task A')
         ->and($task->status)->toBe('pending');
 });
 
