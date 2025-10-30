@@ -13,7 +13,8 @@ class Dashboard extends Component
 
     protected $listeners = [
         'taskCreated' => 'createTask',
-        'openTask' => 'showTaskView'
+        'openTask' => 'showTaskView',
+        'closeTask' => 'closeTaskView'
     ];
 
     public function updateTaskStatus($taskId, $newStatus)
@@ -49,6 +50,11 @@ class Dashboard extends Component
     public function showTaskView($taskId)
     {
         $this->selectedTaskId = $taskId;
+    }
+
+    public function closeTaskView($taskId)
+    {
+        $this->selectedTaskId = null;
     }
 
     public function render()

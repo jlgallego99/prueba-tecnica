@@ -14,6 +14,8 @@ class TaskView extends Component
     {
         if ($this->taskId) {
             $this->task = Task::query()->where('id', '=', $this->taskId)->first();
+        } else {
+            $this->emitUp('closeTask');
         }
     }
 
