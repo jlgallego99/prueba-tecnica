@@ -69,28 +69,47 @@
 
 @push('scripts')
     <script>
-        const columns = document.querySelectorAll(".task-column");
-        columns.forEach(zone => {
-            zone.addEventListener("dragover", e => e.preventDefault());
+        function dragAndDrop() {
+            const columns = document.querySelectorAll(".task-column");
+            columns.forEach(column => {
+                // First remove the old listeners
+                column.removeEventListener("dragover", dragover);
+                column.removeEventListener("drop", drop);
 
-            zone.addEventListener("drop", e => {
-                e.preventDefault();
-
-                const taskId = e.dataTransfer.getData('text/plain');
-                const newStatus = zone.dataset.status;
-
-                // Call the livewire component
-                const dashboard = Livewire.find(document.querySelector('[data-dashboard-id]').dataset
-                    .dashboardId);
-                dashboard.call('updateTaskStatus', taskId, newStatus);
+                // Then, add the new ones
+                column.addEventListener("dragover", e => e.preventDefault());
+                column.addEventListener("drop", drop);
             });
-        });
 
-        const tasks = document.querySelectorAll(".task");
-        tasks.forEach(task => {
-            task.addEventListener("dragstart", e => {
-                e.dataTransfer.setData("text/plain", task.dataset.id);
+            const tasks = document.querySelectorAll(".task");
+            tasks.forEach(task => {
+                task.removeEventListener("dragstart", dragstart);
+                task.addEventListener("dragstart", dragstart);
             });
-        });
+        }
+
+        function dragover(e) {
+            e.preventDefault();
+        }
+
+        function drop(e) {
+            e.preventDefault();
+
+            const taskId = e.dataTransfer.getData('text/plain');
+            const newStatus = e.currentTarget.dataset.status;
+
+            // Call the livewire component
+            const dashboard = Livewire.find(document.querySelector('[data-dashboard-id]').dataset
+                .dashboardId);
+            dashboard.call('updateTaskStatus', taskId, newStatus);
+        }
+
+        function dragstart(e) {
+            e.dataTransfer.setData("text/plain", e.target.dataset.id);
+        }
+
+        // Run on each update of the component, so the listener has the new task
+        document.addEventListener("livewire:load", dragAndDrop);
+        document.addEventListener("livewire:update", dragAndDrop);
     </script>
 @endpush
