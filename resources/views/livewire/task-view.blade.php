@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="flex justify-between p-4">
-                    <button wire:click='deleteTask'
+                    <button type="button" wire:click='deleteTask'
                         class="bg-transparent text-red-500 rounded-md mt-2 px-3 py-1 hover:cursor-pointer hover:underline">Delete</button>
                     <button type="submit"
                         class="bg-primary text-white rounded-md mt-2 px-3 py-1 hover:cursor-pointer hover:bg-[#b7a5fc]">Update</button>
