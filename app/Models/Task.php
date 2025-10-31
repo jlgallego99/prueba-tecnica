@@ -21,4 +21,9 @@ class Task extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function auditTrails()
+    {
+        return $this->morphMany(AuditTrail::class, 'auditable');
+    }
 }

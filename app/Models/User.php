@@ -48,8 +48,8 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
-    public function audit_trails(): HasMany
+    public function auditTrails()
     {
-        return $this->hasMany(AuditTrail::class);
+        return $this->morphMany(AuditTrail::class, 'auditable');
     }
 }
