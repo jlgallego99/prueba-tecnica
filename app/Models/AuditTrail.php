@@ -11,6 +11,13 @@ class AuditTrail extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'action',
+        'auditable_id',
+        'auditable_type'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
