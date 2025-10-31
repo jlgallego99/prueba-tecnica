@@ -3,12 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use App\Traits\Auditable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Register extends Component
 {
+    use Auditable;
+
     public $name;
 
     public $email;
@@ -32,6 +35,8 @@ class Register extends Component
         ]);
 
         Auth::login($user);
+
+        $this->log('create', $user);
 
         return redirect()->route('dashboard');
     }

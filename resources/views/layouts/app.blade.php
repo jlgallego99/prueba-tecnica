@@ -11,12 +11,7 @@
 </head>
 
 <body class="bg-gray-100">
-    <header class="bg-white shadow p-5 flex justify-between">
-        <h1 class="text-primary text-xl font-bold">
-            Mini-Trello
-        </h1>
-        <livewire:navbar />
-    </header>
+    <livewire:navbar />
 
     <main class="flex justify-center">
         {{ $slot }}
