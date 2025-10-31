@@ -6,7 +6,9 @@
     <nav class="space-x-4">
         <div class="space-x-10">
             <a href="/dashboard" class="text-lg hover:underline hover:text-primary cursor-pointer">Dashboard</a>
-            <a href="/audit" class="text-lg hover:underline hover:text-primary cursor-pointer">Audit</a>
+            @if (Auth::check() && Auth::user()->is_admin)
+                <a href="/audit" class="text-lg hover:underline hover:text-primary cursor-pointer">Audit</a>
+            @endif
             @auth
                 <button wire:click='logout' class="hover:underline hover:text-primary cursor-pointer">Logout</a>
                 @endauth

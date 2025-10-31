@@ -22,5 +22,8 @@ Route::get('/register', Register::class)->name('register');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
-    Route::get('/audit', AuditTrail::class)->name('audit');
+
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/audit', AuditTrail::class)->name('audit');
+    });
 });
