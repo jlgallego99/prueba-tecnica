@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\AuditTrail;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Login;
 use App\Http\Livewire\Register;
@@ -21,4 +22,5 @@ Route::get('/register', Register::class)->name('register');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    Route::get('/audit', AuditTrail::class)->name('audit');
 });
