@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
+
+    public function audit_trails(): HasMany
+    {
+        return $this->hasMany(AuditTrail::class);
+    }
 }
