@@ -5,6 +5,7 @@
 
     <nav class="space-x-4">
         <div class="space-x-10">
+            <a href="/dashboard" class="text-lg hover:underline hover:text-primary cursor-pointer">Dashboard</a>
             <a href="/audit" class="text-lg hover:underline hover:text-primary cursor-pointer">Audit</a>
             @auth
                 <button wire:click='logout' class="hover:underline hover:text-primary cursor-pointer">Logout</a>
