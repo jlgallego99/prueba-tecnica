@@ -22,6 +22,7 @@
         {{ $slot }}
     </main>
 
+    <livewire:notification />
     @livewireScripts
     @stack('scripts')
 </body>
