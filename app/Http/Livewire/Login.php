@@ -21,7 +21,7 @@ class Login extends Component
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             return redirect()->route('dashboard');
         } else {
-            $this->addError('credentials', 'Credenciales incorrectas');
+            $this->emitTo('notification', 'notify', 'Incorrect credentials', 'error');
         }
     }
 

@@ -115,10 +115,5 @@
         // Run on each update of the component, so the listener has the new task
         document.addEventListener("livewire:load", dragAndDrop);
         document.addEventListener("livewire:update", dragAndDrop);
-
-        setTimeout( function() {
-            console.log('HEY');
-            Livewire.emitTo('notification', 'notify', 'HOLA LOGGED IN');
-        }, 2000);
     </script>
 @endpush
