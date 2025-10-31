@@ -1,6 +1,6 @@
 @if ($notificationId)
     <div wire:key="notification-{{ $notificationId }}"
-        class="fixed z-100 bottom-6 right-6 pointer-events-none border-2 rounded-lg border-primary">
+        class="fixed z-100 bottom-6 right-6 pointer-events-none border-2 rounded-lg {{ $type === 'error' ? 'border-red-500' : 'border-primary' }}">
         <div class="flex flex-col items-end space-y-3">
             <div id="notification-{{ $notificationId }}"
                 class="max-w-sm w-full pointer-events-auto px-5 py-4 rounded-lg shadow-lg"

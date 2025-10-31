@@ -27,6 +27,9 @@ class Dashboard extends Component
         if ($task && $task->user_id === Auth::id() && $newStatus !== $task->status) {
             $task->status = $newStatus;
             $task->save();
+
+            // Notify task updated
+            $this->emitTo('notification', 'notify', 'Task status updated correctly');
         }
     }
 
@@ -38,6 +41,12 @@ class Dashboard extends Component
                 'status' => $this->creatingOnColumn,
                 'description' => '',
             ]);
+
+            // Notify new task created
+            $this->emitTo('notification', 'notify', 'New task created');
+        } else {
+            // Notify error on new task created
+            $this->emitTo('notification', 'notify', 'Error creating task', 'error');
         }
 
         // Also close the form if the user tries to input an empty title, like in trello
@@ -50,6 +59,12 @@ class Dashboard extends Component
 
         if ($task && $task->user_id === Auth::id()) {
             $task->delete();
+
+            // Notify task deleted
+            $this->emitTo('notification', 'notify', 'Task deleted correctly');
+        } else {
+            // Notify task updated error
+            $this->emitTo('notification', 'notify', 'Error deleting task', 'error');
         }
 
         $this->selectedTaskId = null;
@@ -63,6 +78,12 @@ class Dashboard extends Component
             $task->title = $taskTitle;
             $task->description = $taskDescription;
             $task->save();
+
+            // Notify task updated
+            $this->emitTo('notification', 'notify', 'Task updated correctly');
+        } else {
+            // Notify task updated error
+            $this->emitTo('notification', 'notify', 'Error updating task', 'error');
         }
 
         $this->selectedTaskId = null;
