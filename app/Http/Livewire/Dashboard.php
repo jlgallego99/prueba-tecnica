@@ -3,11 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Models\Task;
+use App\Traits\Auditable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Dashboard extends Component
 {
+    use Auditable;
+
     public string|null $creatingOnColumn = null;
     public string|null $selectedTaskId = null;
 
@@ -30,13 +33,14 @@ class Dashboard extends Component
 
             // Notify task updated
             $this->emitTo('notification', 'notify', 'Task status updated correctly');
+            $this->log('updated', $task);
         }
     }
 
     public function createTask($taskTitle): void
     {
         if ($taskTitle && $this->creatingOnColumn && !empty($taskTitle)) {
-            auth()->user()->tasks()->create([
+            $task = auth()->user()->tasks()->create([
                 'title' => $taskTitle,
                 'status' => $this->creatingOnColumn,
                 'description' => '',
@@ -44,9 +48,11 @@ class Dashboard extends Component
 
             // Notify new task created
             $this->emitTo('notification', 'notify', 'New task created');
+            $this->log('created', $task);
         } else {
             // Notify error on new task created
             $this->emitTo('notification', 'notify', 'Error creating task', 'error');
+            $this->log('error creating');
         }
 
         // Also close the form if the user tries to input an empty title, like in trello
@@ -58,6 +64,7 @@ class Dashboard extends Component
         $task = Task::query()->where('id', '=', $taskId)->first();
 
         if ($task && $task->user_id === Auth::id()) {
+            $this->log('deleted', $task);
             $task->delete();
 
             // Notify task deleted
@@ -65,6 +72,7 @@ class Dashboard extends Component
         } else {
             // Notify task updated error
             $this->emitTo('notification', 'notify', 'Error deleting task', 'error');
+            $this->log('error deleting');
         }
 
         $this->selectedTaskId = null;
@@ -81,9 +89,11 @@ class Dashboard extends Component
 
             // Notify task updated
             $this->emitTo('notification', 'notify', 'Task updated correctly');
+            $this->log('updated', $task);
         } else {
             // Notify task updated error
             $this->emitTo('notification', 'notify', 'Error updating task', 'error');
+            $this->log('error updating');
         }
 
         $this->selectedTaskId = null;
