@@ -17,12 +17,17 @@ class Notification extends Component
         'close-notification' => 'close'
     ];
 
-    public function create(string $message, $type = 'info', $timeout = 5000): void
+    public function create(string $message, $type = 'info', $timeout = 2000): void
     {
         $this->notificationId = Str::uuid();
         $this->message = $message;
         $this->timeout = $timeout;
         $this->type = $type;
+
+        // Let the browser know a new notification was shown
+        $this->dispatchBrowserEvent('notification-timeout', [
+            'timeout' => $this->timeout,
+        ]);
     }
 
     public function close(): void

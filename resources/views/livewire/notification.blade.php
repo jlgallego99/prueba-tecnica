@@ -22,3 +22,11 @@
 @else
 <div class="hidden"></div>
 @endif
+
+<script>
+    window.addEventListener('notification-timeout', event => {
+        setTimeout(() => {
+            Livewire.emit('close-notification');
+        }, event.detail.timeout);
+    });
+</script>
